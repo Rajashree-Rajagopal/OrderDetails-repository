@@ -15,12 +15,9 @@ phases:
     commands:
       - echo Logging into Amazon ECR
       - aws --version
-      #- $(aws ecr get-login --no-include-email --region us-east-2)
-	
-     #- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j0r3o5g3
+      - $(aws ecr get-login --no-include-email --region us-east-2)
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4f4k7v3
-     - REPOSITORY_URI=public.ecr.aws/a4f4k7v3/orders-repository
-      
+      - REPOSITORY_URI=public.ecr.aws/a4f4k7v3/orders-repository
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
